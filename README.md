@@ -40,9 +40,10 @@ match the lookup table expectations.
 How to run:
 1. pip install regex
 2. pip install DateTime
-3. pip install symspellpy
-4. pip install setuptools
+3. optionally do "pip install symspellpy"
+4. pip install openpyxl
 5. pip install pandas
+6. pip install xlsxwriter
 6. run the py file. Output will be saved as an Excel file and printed in terminal.
 7. If you don't have Excel installed, pandas saving and reading still work fine but
    you can't as easily edit the input or lookuptable if you want to experiment.

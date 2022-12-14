@@ -508,11 +508,12 @@ df_ora['Complaint Receipt Date'] = df_ora['Complaint Receipt Date'].astype('str'
 df_ora['Date of Event'] = df_ora['Date of Event'].astype('str')
 df_ora.fillna('', inplace=True)
 df_ora.drop_duplicates(subset='ID', keep=False, inplace=True)
-print(df_ora[df_ora['ID']==3]['Questionnaire Text'].iloc[0])
+
 tic = time.perf_counter()
 df_ora = df_ora.apply(text_Generator, axis=1)
 toc = time.perf_counter()
 print(f"Ran in {(toc - tic) / len(df_ora):0.4f} seconds per record")
+
 excelfile = pd.ExcelWriter(f'{output_folder_path}Output {format(date.today())}.xlsx', engine='xlsxwriter')
 df_ora.to_excel(excelfile, sheet_name='output', index=False)
 excelfile.close()
