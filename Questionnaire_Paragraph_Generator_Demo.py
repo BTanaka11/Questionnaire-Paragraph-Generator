@@ -6,21 +6,22 @@ import time
 import datetime as dt
 from datetime import date
 import glob
-from symspellpy import SymSpell, Verbosity
-import pkg_resources
 import pandas as pd
+
+try:
+    from symspellpy import SymSpell, Verbosity
+    import pkg_resources
+    Correct_Spelling_On = True
+    sym_spell = SymSpell(max_dictionary_edit_distance=1, prefix_length=7)
+    dictionary_path = pkg_resources.resource_filename(
+        "symspellpy", "frequency_dictionary_en_82_765.txt")
+    sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
+except:
+    Correct_Spelling_On = False
 
 lookup_table_filepath = 'LookupTable.xlsx'
 input_filepath = 'Input.xlsx'
 output_folder_path = 'Output/'
-
-Correct_Spelling_On = True
-
-sym_spell = SymSpell(max_dictionary_edit_distance=1, prefix_length=7)
-dictionary_path = pkg_resources.resource_filename(
-    "symspellpy", "frequency_dictionary_en_82_765.txt")
-
-sym_spell.load_dictionary(dictionary_path, term_index=0, count_index=1)
 
 def get_fuzzieness():
     fuzzy = os.environ.get('FUZZIENESS')
@@ -231,12 +232,10 @@ def add_period_to_end(inp):
         inp = inp + '.'
     return inp
 
-
 def remove_double_words(inp1, inp2):
     if inp1.split()[-1] == inp2.split()[0]:
         return inp1 + ' '.join(inp2.split()[1:])
     return inp1 + inp2
-
 
 def text_Generator(x):
     Questionnaire_Text = x['Questionnaire Text'].replace('\r', '\n').replace('&amp;',
