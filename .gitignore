@@ -1,3 +1,4 @@
 .venv
 Output/*.xlsx
-text_generator_demo.mp4
+Questionnaire-Paragraph-Generator.mp4
+.DS_Store
